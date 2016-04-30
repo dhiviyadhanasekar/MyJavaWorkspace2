@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+
+
+public class KMeans {
+
+	ArrayList<Point> pointList = new ArrayList<Point>();
+	float[][] distanceBetPoints;// = new float[pointList.size()][];
+	
+	public static void main(String[] args) {
+		// 1, 4, 9, 16, 25, 36, 49, 64, 81, and 100,
+		Point A = new Point(1, 0, 0, 'A');
+		Point B = new Point(4, 0, 1, 'B');
+		Point C = new Point(9,0,2, 'C');
+		Point D = new Point(16,0,3, 'D');
+		Point E = new Point(25, 0, 4, 'E');
+		Point F = new Point(36, 0, 6, 'F');
+		Point G = new Point(49, 0, 7, 'G');
+		Point H = new Point(64, 0, 8, 'H');
+		Point I = new Point(81, 0, 9, 'I');
+		Point J = new Point(100, 0, 10, 'J');
+		
+		KMeans obj = new KMeans();
+		obj.pointList.add(A);
+		obj.pointList.add(B);
+		obj.pointList.add(C);
+		obj.pointList.add(D);
+		obj.pointList.add(E);
+		obj.pointList.add(F);
+		obj.pointList.add(G);
+		obj.pointList.add(H);
+		obj.pointList.add(I);
+		obj.pointList.add(J);
+		obj.distanceBetPoints = Utils.findDistanceBetweenPoints(obj.pointList);
+	}
+	
+	public void initClusters(Cluster c1, Cluster c2){
+		
+		int choosenPt1Index = c1.clusterPoints.get(0).pointIndex;
+		int choosenPt2Index = c2.clusterPoints.get(0).pointIndex;
+		
+		for(int i=0; i<pointList.size(); i++){
+			
+			if(i == choosenPt1Index || i == choosenPt2Index) continue;
+			float dist1 = distanceBetPoints[i][choosenPt1Index];
+			float dist2 = distanceBetPoints[i][choosenPt2Index];
+			if(dist1 <= dist2) c1.addPoint(pointList.get(i));
+			else c2.addPoint(pointList.get(i));
+			
+		}
+		
+		System.out.println("Init clusters");
+	}
+
+}

@@ -1,0 +1,7 @@
+import java.util.HashMap;
+
+
+public class ProjConstants {
+	const HashMap<Integer, Character> pointToNameMap = new HashMap<Integer, Character>();
+	
+}

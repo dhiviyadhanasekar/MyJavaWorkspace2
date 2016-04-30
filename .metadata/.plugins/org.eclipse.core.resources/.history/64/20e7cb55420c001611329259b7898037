@@ -1,0 +1,87 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+public class ClusteringAlgo {
+	
+	ArrayList<Cluster> clustersList = new ArrayList<Cluster>();
+	ArrayList<Point> pointList = new ArrayList<Point>();
+	double[][] distanceBetPoints;// = new double[pointList.size()][];
+	
+	
+//	public void findDistBetClusters(){
+//		ArrayList<ArrayList<Integer>> clusterDistMatrix = new ArrayList<ArrayList<Integer>>();
+//		
+//		for(int i=0; i<clustersList.size(); i++) {
+//			ArrayList<Integer> curClusterDis = new ArrayList<Integer>();
+//			clusterDistMatrix.add(curClusterDis);
+//		}
+//		
+//		for(int i=0; i<clustersList.size(); i++) {
+//			ArrayList<Integer> curClusterDis = clusterDistMatrix.get(i);
+//			for(int j=0; j<clustersList.size(); j++){
+//				if(i==j) curClusterDis.set(j, -1);
+//				else{
+//					curClusterDis.set(j, getD)
+//				}
+//			}
+//		}
+//	}
+	
+	public double getDistanceBetweenPoints(Point p1, Point p2){
+		double X2 = (double) Math.pow(p2.x - p1.x, 2);
+		double Y2 = (double) Math.pow(p2.y - p1.y, 2);
+		return (double) Math.sqrt(X2 + Y2);
+	}
+	
+	public void findDistanceBetweenPoints(){
+		for(int i=0; i<pointList.size(); i++){
+			distanceBetPoints[i][i] = -1;
+			for(int j=i+1; j<pointList.size(); j++){
+				double dist = getDistanceBetweenPoints(pointList.get(i), pointList.get(j));
+				distanceBetPoints[i][j] = dist;
+				distanceBetPoints[j][i] = dist;
+			}
+		}
+		
+		for(int i=0; i<pointList.size(); i++){
+			for(int j=0; j<pointList.size(); j++){
+				System.out.print(distanceBetPoints[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		ClusteringAlgo obj = new ClusteringAlgo();
+		
+		Point A = new Point(0, 0, 'A');
+		Point B = new Point(10, 10, 'B');
+		Point C = new Point(21,21,'C');
+		Point D = new Point(33,33,'D');
+		Point E = new Point(5, 27, 'E');
+		Point F = new Point(28, 6, 'F');
+		
+		obj.pointList.add(A);
+		obj.pointList.add(B);
+		obj.pointList.add(C);
+		obj.pointList.add(D);
+		obj.pointList.add(E);
+		obj.pointList.add(F);
+		obj.distanceBetPoints = new double[obj.pointList.size()][obj.pointList.size()];
+				
+		obj.findDistanceBetweenPoints();
+		
+		obj.clustersList.add(new Cluster(A));
+		obj.clustersList.add(new Cluster(B));
+		obj.clustersList.add(new Cluster(C));
+		obj.clustersList.add(new Cluster(D));
+		obj.clustersList.add(new Cluster(E));
+		obj.clustersList.add(new Cluster(F));
+		
+		
+		
+	}
+
+}

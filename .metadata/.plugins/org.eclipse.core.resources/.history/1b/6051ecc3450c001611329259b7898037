@@ -1,0 +1,23 @@
+import java.util.ArrayList;
+
+
+public class Cluster {
+	
+	ArrayList<Point> clusterPoints;
+	
+	public Cluster(Point p){
+		clusterPoints = new ArrayList<Point>();
+		clusterPoints.add(p);
+	}
+	
+	void addPoint(Point p){
+		clusterPoints.add(p);
+	}
+	
+	String printClusterPoints(){
+		String pointStr = "";
+		for(Point p: clusterPoints){
+			
+		}
+	}
+}

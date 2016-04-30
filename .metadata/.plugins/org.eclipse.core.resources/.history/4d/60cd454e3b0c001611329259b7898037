@@ -1,0 +1,13 @@
+import java.util.ArrayList;
+
+
+public class ClusteringAlgo {
+	
+	ArrayList<Cluster> clustersList = new ArrayList<Cluster>();
+
+	public static void main(String[] args) {
+		
+		
+	}
+
+}

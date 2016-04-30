@@ -1,0 +1,118 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+public class ClusteringAlgo {
+	
+	ArrayList<Cluster> clustersList = new ArrayList<Cluster>();
+	ArrayList<Point> pointList = new ArrayList<Point>();
+	float[][] distanceBetPoints;// = new float[pointList.size()][];
+	
+	
+	public float[][] findDistanceBetweenPoints(ArrayList<Point> pointList){
+		float[][] distanceBetPoints = new float[pointList.size()][pointList.size()];;
+		for(int i=0; i<pointList.size(); i++){
+			distanceBetPoints[i][i] = -1;
+			for(int j=i+1; j<pointList.size(); j++){
+				float dist = Utils.getDistanceBetweenPoints(pointList.get(i), pointList.get(j));
+				distanceBetPoints[i][j] = dist;
+				distanceBetPoints[j][i] = dist;
+			}
+		}
+		
+		for(int i=0; i<pointList.size(); i++){
+			for(int j=0; j<pointList.size(); j++){
+				System.out.print(distanceBetPoints[i][j] + " ");
+			}
+			System.out.println();
+		}
+		return distanceBetPoints;
+	}
+	
+	public static void main(String[] args) {
+		
+		ClusteringAlgo obj = new ClusteringAlgo();
+		
+		Point A = new Point(0, 0, 0, 'A');
+		Point B = new Point(10, 10, 1, 'B');
+		Point C = new Point(21,21,2, 'C');
+		Point D = new Point(33,33,3, 'D');
+		Point E = new Point(5, 27, 4, 'E');
+		Point F = new Point(28, 6, 5, 'F');
+		
+		obj.pointList.add(A);
+		obj.pointList.add(B);
+		obj.pointList.add(C);
+		obj.pointList.add(D);
+		obj.pointList.add(E);
+		obj.pointList.add(F);
+//		obj.distanceBetPoints = new float[obj.pointList.size()][obj.pointList.size()];
+				
+		obj.distanceBetPoints = obj.findDistanceBetweenPoints(obj.pointList);
+		
+		obj.clustersList.add(new Cluster(A));
+		obj.clustersList.add(new Cluster(B));
+		obj.clustersList.add(new Cluster(C));
+		obj.clustersList.add(new Cluster(D));
+		obj.clustersList.add(new Cluster(E));
+		obj.clustersList.add(new Cluster(F));
+		
+		while(obj.clustersList.size() > 1) obj.cluster();
+		
+	}
+	
+
+	private void cluster() {
+		float[][] distBetClusters = new float[clustersList.size()][clustersList.size()];
+		int clusterIndex1 = -1, clusterIndex2 = -1;
+		float minDist = -1;
+		for(int i=0; i<clustersList.size(); i++){
+			distBetClusters[i][i] = -1;
+			for(int j=i+1; j<clustersList.size(); j++){
+				float dist = getMinDistBetClusters(clustersList.get(i), clustersList.get(j));
+				distBetClusters[i][j] = dist;
+				distBetClusters[j][i] = dist;
+				if(minDist == -1){
+					minDist = dist;
+					clusterIndex1 = i;
+					clusterIndex2 = j;
+				} else if(dist < minDist){
+					minDist = dist;
+					clusterIndex1 = i;
+					clusterIndex2 = j;
+				}
+			}
+		}
+		
+		Cluster cluster1 = clustersList.get(clusterIndex1);
+		Cluster cluster2 = clustersList.get(clusterIndex2);
+		System.out.println("Clustering " + cluster1.printClusterPoints()
+				+ " and " +  cluster2.printClusterPoints());
+		cluster1.mergePoints(cluster2.clusterPoints);
+		clustersList.remove(clusterIndex2);
+		System.out.print("CurrentClusters =====> ");
+		for(int i=0; i<clustersList.size(); i++){
+			System.out.print(clustersList.get(i).printClusterPoints() + " , ");
+		}
+		System.out.println();
+		System.out.println("*****************************************");
+		
+	}
+
+	private float getMinDistBetClusters(Cluster c1, Cluster c2) {
+		ArrayList<Point> c1Points =  c1.clusterPoints;
+		ArrayList<Point> c2Points = c2.clusterPoints;
+		float minDist = -1;
+		for(int i=0; i<c1Points.size(); i++){
+			for(int j=0; j<c2Points.size(); j++){
+				float dist = distanceBetPoints[c1Points.get(i).pointIndex][c2Points.get(j).pointIndex];
+				if(minDist == -1) minDist = dist;
+				else if(dist < minDist) minDist = dist;
+			}
+		}
+		System.out.println();
+		System.out.println("*****************************************");
+		return minDist;
+	}
+
+}

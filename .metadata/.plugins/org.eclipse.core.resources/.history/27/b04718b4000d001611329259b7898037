@@ -1,0 +1,34 @@
+import java.util.ArrayList;
+
+
+public class L2NormClustroid {
+
+	ArrayList<Point> pointList = new ArrayList<Point>();
+	float[][] distanceBetPoints;// = new float[pointList.size()][];
+	
+	public static void main(String[] args) {
+		
+		L2NormClustroid obj = new L2NormClustroid();
+		
+		Point A = new Point(0, 0, 0, 'A');
+		Point B = new Point(10, 10, 1, 'B');
+		Point C = new Point(21,21,2, 'C');
+		Point D = new Point(33,33,3, 'D');
+		Point E = new Point(5, 27, 4, 'E');
+		Point F = new Point(28, 6, 5, 'F');
+		
+		obj.pointList.add(A);
+		obj.pointList.add(B);
+		obj.pointList.add(C);
+		obj.pointList.add(D);
+		obj.pointList.add(E);
+		obj.pointList.add(F);
+//		obj.distanceBetPoints = new float[obj.pointList.size()][obj.pointList.size()];
+				
+		obj.distanceBetPoints = Utils.findDistanceBetweenPoints(obj.pointList);
+		
+		
+
+	}
+
+}

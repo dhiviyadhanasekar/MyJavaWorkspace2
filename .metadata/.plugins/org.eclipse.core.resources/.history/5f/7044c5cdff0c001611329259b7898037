@@ -1,0 +1,10 @@
+
+public class Utils {
+	
+	public static float getDistanceBetweenPoints(Point p1, Point p2){
+		float X2 = (float) Math.pow(p2.x - p1.x, 2);
+		float Y2 = (float) Math.pow(p2.y - p1.y, 2);
+		return (float) Math.sqrt(X2 + Y2);
+	}
+
+}

@@ -1,0 +1,4 @@
+
+public class ProjConstants {
+	HashMap<Integer, Character> pointToNameMap = new HashMap<Integer, Character>();
+}

@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+public class L2NormClustroid {
+
+	ArrayList<Point> pointList = new ArrayList<Point>();
+	float[][] distanceBetPoints;// = new float[pointList.size()][];
+	ArrayList<Cluster> clusterList = new ArrayList<Cluster>();
+	
+	public static void main(String[] args) {
+		
+		L2NormClustroid obj = new L2NormClustroid();
+		
+		Point A = new Point(1, 6, 0, 'A');
+		Point B = new Point(3, 7, 1, 'B');
+		Point C = new Point(4, 3, 2, 'C');
+		Point D = new Point(7, 7,3, 'D');
+		Point E = new Point(8, 2, 4, 'E');
+		Point F = new Point(9, 5, 5, 'F');
+		
+		obj.pointList.add(A);
+		obj.pointList.add(B);
+		obj.pointList.add(C);
+		obj.pointList.add(D);
+		obj.pointList.add(E);
+		obj.pointList.add(F);
+		obj.distanceBetPoints = Utils.findSquareOfDistanceBetweenPoints(obj.pointList);
+		
+		//{a,b,c,d}, {b,c,d,e}, {c,d,e,f}, and {a,b,e,f}
+		Cluster cluster1 = new Cluster(Arrays.asList(A, B, C, D));
+		Cluster cluster2 = new Cluster(Arrays.asList(B, C, D, E));
+		Cluster cluster3 = new Cluster(Arrays.asList(C, D, E, F));
+		Cluster cluster4 = new Cluster(Arrays.asList(A, B, E, F));
+		obj.clusterList.add(cluster1);
+		obj.clusterList.add(cluster2);
+		obj.clusterList.add(cluster3);
+		obj.clusterList.add(cluster4);
+		obj.calcCentroidInCluster(cluster1);
+	}
+	
+	
+	public void calcCentroidInCluster(Cluster c){
+		ArrayList<Point> points = c.clusterPoints;
+		float minCentroidDist = -1;
+		Point minCentroidPoint = null;
+		for(int i=0; i<points.size(); i++){
+			float dist = 0;
+			for(int j=0; j<points.size(); j++){
+				if(i==j) continue;
+				dist += 
+			}
+			
+			if(minCentroidDist == -1 || )
+			
+		}
+	}
+
+}

@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Cluster {
+	
+	List<Point> clusterPoints;
+	
+	public Cluster(Point p){
+		clusterPoints = new ArrayList<Point>();
+		clusterPoints.add(p);
+	}
+	
+	public Cluster(List<Point> points){
+		clusterPoints = (List<Point>) points;
+	}
+	
+	void addPoint(Point p){
+		clusterPoints.add(p);
+	}
+	
+	void mergePoints(ArrayList<Point> clusterPointsToAdd){
+		clusterPoints.addAll(clusterPointsToAdd);
+	}
+	
+	String printClusterPoints(){
+		String pointStr = "{";
+		for(int i=0; i< clusterPoints.size(); i++){
+			Point p = clusterPoints.get(i);
+			pointStr += ProjConstants.pointToNameMap.get( p.pointIndex );
+			if(i != clusterPoints.size()-1) pointStr += ", ";
+		}
+		pointStr += "}";
+		return pointStr;
+	}
+	
+	String printClusterPointsByXVal(){
+		String pointStr = "{";
+		for(int i=0; i< clusterPoints.size(); i++){
+			Point p = clusterPoints.get(i);
+			pointStr +=  p.x;
+			if(i != clusterPoints.size()-1) pointStr += ", ";
+		}
+		pointStr += "}";
+		return pointStr;
+	}
+}

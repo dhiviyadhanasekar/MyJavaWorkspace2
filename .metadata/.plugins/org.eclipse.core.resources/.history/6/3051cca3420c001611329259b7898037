@@ -1,0 +1,10 @@
+
+public class Point {
+	int x, y;
+	char pointName;
+	public Point(int x, int y, char pointName){
+		this.x = x;
+		this.y = y;
+		this.pointName = pointName;
+	}
+}

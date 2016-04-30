@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+
+
+public class Utils {
+	
+	public static float getDistanceBetweenPoints(Point p1, Point p2){
+//		float X2 = (float) Math.pow(p2.x - p1.x, 2);
+//		float Y2 = (float) Math.pow(p2.y - p1.y, 2);
+		return (float) Math.sqrt(getSquareOfDistanceBetweenPoints(p1, p2));
+	}
+	
+	public static float getSquareOfDistanceBetweenPoints(Point p1, Point p2){
+		float X2 = (float) Math.pow(p2.x - p1.x, 2);
+		float Y2 = (float) Math.pow(p2.y - p1.y, 2);
+		return (float) (X2 + Y2);
+	}
+	
+	public static float[][] findDistanceBetweenPoints(ArrayList<Point> pointList){
+		float[][] distanceBetPoints = new float[pointList.size()][pointList.size()];;
+		for(int i=0; i<pointList.size(); i++){
+			distanceBetPoints[i][i] = -1;
+			for(int j=i+1; j<pointList.size(); j++){
+				float dist = Utils.getDistanceBetweenPoints(pointList.get(i), pointList.get(j));
+				distanceBetPoints[i][j] = dist;
+				distanceBetPoints[j][i] = dist;
+			}
+		}
+		
+		for(int i=0; i<pointList.size(); i++){
+			for(int j=0; j<pointList.size(); j++){
+				System.out.print(distanceBetPoints[i][j] + " ");
+			}
+			System.out.println();
+		}
+		return distanceBetPoints;
+	}
+
+	public static float[][] findSquareOfDistanceBetweenPoints(
+			ArrayList<Point> pointList) {
+		float[][] distanceBetPoints = new float[pointList.size()][pointList.size()];;
+		for(int i=0; i<pointList.size(); i++){
+			distanceBetPoints[i][i] = -1;
+			for(int j=i+1; j<pointList.size(); j++){
+				float dist = Utils.getSquareOfDistanceBetweenPoints(pointList.get(i), pointList.get(j));
+				distanceBetPoints[i][j] = dist;
+				distanceBetPoints[j][i] = dist;
+			}
+		}
+		
+		for(int i=0; i<pointList.size(); i++){
+			for(int j=0; j<pointList.size(); j++){
+				System.out.print(distanceBetPoints[i][j] + " ");
+			}
+			System.out.println();
+		}
+		return distanceBetPoints;
+	}
+
+}

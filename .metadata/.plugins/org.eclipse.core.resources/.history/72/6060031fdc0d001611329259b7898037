@@ -1,0 +1,104 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class KMeans {
+
+	ArrayList<Point> pointList = new ArrayList<Point>();
+	float[][] distanceBetPoints;// = new float[pointList.size()][];
+	
+	public static void main(String[] args) {
+		// 1, 4, 9, 16, 25, 36, 49, 64, 81, and 100,
+		int pointIndex =0;
+		Point A = new Point(1, 0, pointIndex++, 'A');
+		Point B = new Point(4, 0, pointIndex++, 'B');
+		Point C = new Point(9, 0, pointIndex++, 'C');
+		Point D = new Point(16, 0, pointIndex++, 'D');
+		Point E = new Point(25, 0, pointIndex++, 'E');
+		Point F = new Point(36, 0, pointIndex++, 'F');
+		Point G = new Point(49, 0, pointIndex++, 'G');
+		Point H = new Point(64, 0, pointIndex++, 'H');
+		Point I = new Point(81, 0, pointIndex++, 'I');
+		Point J = new Point(100, 0, pointIndex++, 'J');
+		
+		KMeans obj = new KMeans();
+		obj.pointList.add(A);
+		obj.pointList.add(B);
+		obj.pointList.add(C);
+		obj.pointList.add(D);
+		obj.pointList.add(E);
+		obj.pointList.add(F);
+		obj.pointList.add(G);
+		obj.pointList.add(H);
+		obj.pointList.add(I);
+		obj.pointList.add(J);
+		obj.distanceBetPoints = Utils.findDistanceBetweenPoints(obj.pointList);
+		
+		obj.getAllPosibleClusters();
+	}
+	
+	public void getAllPosibleClusters(){
+		for(int i=0; i<pointList.size(); i++){
+			for(int j=i+1; j<pointList.size(); j++){
+				Cluster c1 = new Cluster(pointList.get(i));
+				Cluster c2 = new Cluster(pointList.get(j));
+				initClusters(c1, c2);
+				reC
+			}
+		}
+	}
+	
+	public void reCluster(Cluster c1, Cluster c2){
+		calcCentroidInCluster(c1);
+		calcCentroidInCluster(c2);
+	}
+	
+//	public void calcCentroidForClusters(){
+//		for(Cluster c : clusterList){
+//			
+//		}
+//	}
+	
+	public void calcCentroidInCluster(Cluster c){
+		List<Point> points = (List<Point>) c.clusterPoints;
+		float minCentroidDist = -1;
+		Point minCentroidPoint = null;
+		for(int i=0; i<points.size(); i++){
+			float dist = 0;
+			for(int j=0; j<points.size(); j++){
+				if(i==j) continue;
+				dist += Math.pow(distanceBetPoints[points.get(i).pointIndex][points.get(j).pointIndex],2);
+			}
+			
+			System.out.println("Point " + points.get(i).pointName + " dist = " + dist);
+			if(minCentroidDist == -1 || dist < minCentroidDist){
+				minCentroidDist = dist;
+				minCentroidPoint = points.get(i);
+			}
+		}
+		
+		System.out.println("Centroid for cluster " + c.printClusterPoints() + ": " + minCentroidPoint.pointName);
+		System.out.println("********************************");
+		return minCentroidPoint;
+	}
+
+	
+	public void initClusters(Cluster c1, Cluster c2){
+		
+		int choosenPt1Index = c1.clusterPoints.get(0).pointIndex;
+		int choosenPt2Index = c2.clusterPoints.get(0).pointIndex;
+		
+		for(int i=0; i<pointList.size(); i++){
+			
+			if(i == choosenPt1Index || i == choosenPt2Index) continue;
+			float dist1 = distanceBetPoints[i][choosenPt1Index];
+			float dist2 = distanceBetPoints[i][choosenPt2Index];
+			if(dist1 <= dist2) c1.addPoint(pointList.get(i));
+			else c2.addPoint(pointList.get(i));
+			
+		}
+		
+		System.out.println("Initial clusters" + c1.printClusterPoints() + " & " + c2.printClusterPoints() );
+	}
+
+}
